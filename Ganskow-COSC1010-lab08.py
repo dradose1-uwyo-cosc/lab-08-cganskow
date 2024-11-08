@@ -11,10 +11,23 @@
 # Other wise return the converted int or float 
 # Floats should only have one decimal point in them 
 
+
 def int_or_float(number):
-    pass
+    """takes in a string, checks if it is integer or float, then converts them"""
+    if "." in number:
+        return int(float(number))
+    elif number.isnumeric():
+        return float(number)
+    else:
+        return False
 
+num1 = "56"
+num2 = "7.8"
+num3 = "k"
 
+print(int_or_float(num1))
+print(int_or_float(num2))
+print(int_or_float(num3))
 
 print("*" * 75)
 
@@ -44,17 +57,17 @@ print("*" * 75)
 def point_slope(m, b, lx, ux):
     """collects 4 numbers then uses point-slope formula to return values of y within range given"""
     y_values = []
-    if type(lx) == type(1.0) or type(ux) == type(1.0):
+    if "." in lx or "." in ux:
         return False
     elif int(lx) > int(ux):
-        return "if 2"
-    elif (type(m) == type(1.0) or type(m) == type(1)) and (type(b) == type(1.0) or type(b) == type(1)):
-        for x in range(lx, ux):
-            y = m*x + b
+        return False
+    elif m.isalpha() or b.isalpha() or lx.isalpha() or ux.isalpha():
+        return False
+    else:
+        for x in range(int(lx), int(ux)):
+            y = float(m)*x + float(b)
             y_values.append(y)
         return y_values
-    else:
-        return "final no"
 
 while True:
     user_input = input("please input a m, b, lower x, upper x: type 'exit' to quit")
@@ -62,14 +75,11 @@ while True:
         break
     else:
         numbers = user_input.split(", ")
-        print(numbers)
-        um = int(numbers[0])
-        ub = int(numbers[1])
-        ulx = int(numbers[2])
-        uux = int(numbers[3])
+        um = numbers[0]
+        ub = numbers[1]
+        ulx = numbers[2]
+        uux = numbers[3]
         print(point_slope(um, ub, ulx, uux))
-
-
 
 
 print("*" * 75)
@@ -82,3 +92,28 @@ print("*" * 75)
 # Create a loop like above to prompt the user for input for the three values
 # Create a second function that just does the square root operation 
     # If the number you are trying to take the square root of is negative, return null
+
+def quadratic_formula(a, b, c):
+    root = square_root(a, b, c)
+    if root == "null":
+        return "Cannot find"
+    else:
+        return ((-b+root)/(2*a)), ((-b-root)/(2*a))
+
+def square_root(a, b, c):
+    under_root = b**2 - 4*a*c
+    if str(under_root).startswith("-"):
+        return "null"
+    else:
+        return (under_root)**.5
+
+while True:
+    user_input = input("please input a number for a, b, c or type 'exit' to quit")
+    if user_input.lower() == 'exit':
+        break
+    else:
+        numbers = user_input.split(", ")
+        ua = int(numbers[0])
+        ub = int(numbers[1])
+        uc = int(numbers[2])
+    print(quadratic_formula(ua, ub, uc))
